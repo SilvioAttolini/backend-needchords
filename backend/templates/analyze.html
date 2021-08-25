@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>analyze results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css'%}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <link rel="shortcut icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/need-chords.appspot.com/o/Media%2Fnc.png?alt=media&token=9d3e8cb0-21e5-47c4-afa8-68adf89ba3c4">
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <nav class="z-depth-3 blue lighten-1">
+        <div class="nav-wrapper container">
+            <a href="{% url 'index' %}" class="brand-logo" id="logo" style="margin-top: 0%;">
+                <img src='' id="navbar-img" style="width: 150px; object-fit: cover; position: relative; margin-top: 0%;">
+            </a>
+            <div class="navbuttons">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'posts' %}">Posts</a></li>
+                    <li><a href="{% url 'user_account' %}">myAccount</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="theheader center">
+        <h1>Results of the analysis</h1>
+    </div>
+
+    <div class="content">
+        <h2>Results for: "{{ nameOfFile }}"</h2>
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Chord number</th>
+                    <th>Timestamp</th>
+                    <th>Chord Name</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in r.c %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% for j in r.t %} {% if forloop.counter == forloop.parentloop.counter %} {{j}} {% endif %} {% endfor %}
+                    </td>
+                    <td>{{ i }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <div>
+            <button id="show-plot" value="{{ ipn }}">Show Plot</button>
+            <br>
+            <img id="plot-img" src="" style="display: none;" class="ploty">
+            <br>
+            <button id="show-aud" value="{{ nameOfFile }}">Show Player</button>
+            <br><br>
+            <audio controls id="song-aud" style="display: none;" class="ploty2" src="">
+                    <source type="audio/mpeg">
+                </audio>
+        </div>
+        <br>
+        <p>
+            <div class="createPost">
+                <form id="add-post-form">
+                    <input type="text" name="chords" id="chords" value="{{r.c}}" required hidden>
+                    <input type="text" name="nameOfFile" value="{{ nameOfFile }}" required hidden>
+                    <input type="text" name="timestamps" value="{{r.t}}" required hidden>
+                    <input type="text" name="description" placeholder="post description" required>
+                    <button>Add New Post</button>
+                </form>
+            </div>
+        </p>
+    </div>
+
+    <script src="{% static 'js/firebase_config.js'%}"></script>
+    <script src="{% static 'js/analyze.js'%}"></script>
+
+</body>
+
+</html>

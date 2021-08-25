@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Need Chords?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css'%}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <link rel="shortcut icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/need-chords.appspot.com/o/Media%2Fnc.png?alt=media&token=9d3e8cb0-21e5-47c4-afa8-68adf89ba3c4">
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
+</head>
+
+<body>
+    <nav class="z-depth-3 blue lighten-1">
+        <div class="nav-wrapper container">
+            <a href="{% url 'index' %}" class="brand-logo" id="logo" style="margin-top: 0%;">
+                <img src='' id="navbar-img" style="width: 150px; object-fit: cover; position: relative; margin-top: 0%;">
+            </a>
+            <div class="navbuttons">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'upload' %}">Upload</a></li>
+                    <li><a href="{% url 'posts' %}">Posts</a></li>
+                    <!-- <li><a href="{% url 'index' %}" class="aliceblue-text" id="logout">Logout</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1 class="center">myAccount page</h1>
+    <div class="center">
+        <img id="user-img" src="" style="width: 200px; border-radius: 50%; border: 2px solid navy">
+        <p class="info"></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script>
+    <script src="{% static 'js/firebase_config.js'%} "></script>
+    <script src="{% static 'js/user_account.js'%} "></script>
+</body>
+
+</html>

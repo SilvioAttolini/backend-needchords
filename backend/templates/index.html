@@ -1,0 +1,151 @@
+{% load static %}
+<!-- change all references to the new db of users-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css'%}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+
+    <title>Need Chords?</title>
+    <link rel="shortcut icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/need-chords.appspot.com/o/Media%2Fnc.png?alt=media&token=9d3e8cb0-21e5-47c4-afa8-68adf89ba3c4">
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
+
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="z-depth-3 blue lighten-1">
+        <div class="container">
+            <a href="{% url 'index' %}" class="brand-logo" id="logo" style="margin-top: 0%;">
+                <img src='' id="navbar-img" style="width: 150px; object-fit: cover; position: relative; margin-top: 0%;">
+            </a>
+            <div class="navbuttons logged-in" style="display: none; ">
+                <ul>
+                    <li><a href="{% url 'upload' %}">Upload</a></li>
+                    <li><a href="{% url 'posts' %}">Posts</a></li>
+                    <li><a href="{% url 'user_account' %}">myAccount</a></li>
+                    <li class="logged-in" style="display: none">
+                        <a href="#" class="aliceblue-text" id="logout">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+                <li class="logged-out" style="display: none;">
+                    <a href="#" class="aliceblue-text modal-trigger" data-target="modal-login">Login</a>
+                </li>
+                <li class="logged-out" style="display: none;">
+                    <a href="#" class="aliceblue-text modal-trigger" data-target="modal-signup">Sign up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal">
+        <div class="modal-content">
+            <h4>Sign up</h4><br />
+            <form id="signup-form">
+                <div class="input-field">
+                    <input type="email" id="signup-email" required />
+                    <label for="signup-email">Email address</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="signup-nickname" required />
+                    <label for="signup-nickname">Nickname</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="signup-password" required />
+                    <label for="signup-password">Choose password</label>
+                </div>
+                <br>Upload a profile image.</br>
+                <p></p>
+                <div>
+                    <input type='file' id="profile-img" />
+                </div>
+                <br></br>
+                <button id="upload-profile-img" class="btn blue darken-2 z-depth-0">Sign up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="modal-login" class="modal">
+        <div class="modal-content">
+            <h4>Login</h4><br />
+            <form id="login-form">
+                <div class="input-field">
+                    <input type="email" id="login-email" required />
+                    <label for="login-email">Email address</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="login-password" required />
+                    <label for="login-password">Your password</label>
+                </div>
+                <button class="btn blue darken-2 z-depth-1">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="logged-in center">
+            <h4>Welcome to</h4>
+        </div>
+        <img src="" alt="Need Chords?" id="index-img" style="width: 70%; margin: 0 auto;" class="center logged-in">
+
+        <!-- ABOUT -->
+        <div class=" logged-out center" style="display: none; ">
+            <header>
+                <h1>About "Need Chords ? "</h1>
+            </header>
+
+            <p></p>
+            <div>
+                <p> <b>"Need Chords?"</b> is a web app that allows you to retrieve chords from a file. You only have to access with your e-mail and go into the upload page. Once you have uploaded your song, press the "Analyze" button and the system
+                    will automatically give you all the triads with the relative timestamps.
+                </p>
+
+                <p>However, the algorithm is not perfect, so the system may declare some chords that are imprecise or even wrong. This is how the app becomes a <b>social media</b>. You can ask to the other connected
+                    users to send you a feedback.</p>
+            </div>
+
+        </div>
+
+        <!-- BUTTONS INITIAL PAGE -->
+        <div class="navbar center container logged-in" style="margin: 0 auto; display: none; ">
+            <ul>
+                <li style="padding: 5%;"><a href="{% url 'upload' %}">Upload</a></li>
+                <li style="padding: 5%;"><a href="{% url 'posts' %}">Posts</a></li>
+                <li style="padding: 5%;"><a href="{% url 'user_account' %}">myAccount</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script>
+    <script src="{% static 'js/firebase_config.js'%} "></script>
+    <script src="{% static 'js/auth.js'%} "></script>
+    <script src="{% static 'js/index.js'%} "></script>
+
+
+
+
+
+</body>
+
+</html>
